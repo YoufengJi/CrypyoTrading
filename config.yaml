@@ -1,0 +1,24 @@
+# 配置文件
+# config file
+
+# 虚拟货币分析列表.
+# Cryptocurrency analysis list.
+coin_list: [ 'BTCUSDT','ETHUSDT','WLDUSDT','FETUSDT' ]
+
+
+# macd区间参数
+# macd interval parameters
+intervals:
+  '1m': 120  # 假设1分钟数据的理想初始化数据量
+  '15m': 120  # 假设15分钟数据的理想初始化数据量
+  '1h': 104  # 假设1小时数据的理想初始化数据量
+  '4h': 104  # 假设4小时数据的理想初始化数据量，考虑到4小时周期更长，这里同样使用104作为示例
+
+
+# 计时配置
+# timing configuration
+timing:
+  '1m': 60  # 1分钟
+  '15m': 900  # 15分钟
+  '1h': 3600  # 1小时
+  '4h': 14400  # 4小时
