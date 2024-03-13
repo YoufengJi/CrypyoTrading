@@ -2,9 +2,10 @@ import os
 from datetime import datetime
 
 from data_process import data_manager
-from tools import speaker
+from tools import speaker, logger
 
 data_getter = data_manager.DataManager()
+logger = logger.Logger().get_logger()
 
 
 def check_data_folder(file_path):
@@ -133,7 +134,7 @@ def confirm_entry_points(coin):
 
 
 def analyze(coin, interval):
-    print(f"Analyzing {coin} {interval}")
+    logger.info(f"analyzing {coin} {interval} data")
     if interval == '1m':
         if confirm_entry_points(coin):
             notification(coin)

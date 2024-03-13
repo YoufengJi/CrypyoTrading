@@ -64,7 +64,6 @@ def init_indicator_data(coin_list, intervals):
                 # set the last update time
                 if index == len(recent_data_dataset) - 1:
                     realtime_monitor.add_coin(coin, interval, row['timestamp'])
-                    print(f"{coin} {interval} start to update from {row['timestamp']}")
     return
 
 

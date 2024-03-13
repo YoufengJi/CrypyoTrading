@@ -29,7 +29,6 @@ class DataManager:
         self.coin_data[symbol]['signal_line'] = self.coin_data[symbol]['macd'].ewm(span=signal_window,
                                                                                    adjust=False).mean()
         self.coin_data[symbol]['histogram'] = self.coin_data[symbol]['macd'] - self.coin_data[symbol]['signal_line']
-        print(f"{symbol} MACD initialized")
 
         # RSI
         delta = self.coin_data[symbol]['close'].diff()
@@ -37,20 +36,17 @@ class DataManager:
         self.coin_data[symbol]['loss'] = (-delta.where(delta < 0, 0)).ewm(span=14, adjust=False).mean()
         rs = self.coin_data[symbol]['gain'] / self.coin_data[symbol]['loss']
         self.coin_data[symbol]['rsi'] = 100 - (100 / (1 + rs))
-        print(f"{symbol} RSI initialized")
 
         # Bollinger Bands
         self.coin_data[symbol]['20sma'] = self.coin_data[symbol]['close'].rolling(window=20).mean()
         self.coin_data[symbol]['20std'] = self.coin_data[symbol]['close'].rolling(window=20).std()
         self.coin_data[symbol]['upper_band'] = self.coin_data[symbol]['20sma'] + (self.coin_data[symbol]['20std'] * 2)
         self.coin_data[symbol]['lower_band'] = self.coin_data[symbol]['20sma'] - (self.coin_data[symbol]['20std'] * 2)
-        print(f"{symbol} Bollinger Bands initialized")
 
         # MA
         self.coin_data[symbol]['5ma'] = self.coin_data[symbol]['close'].rolling(window=5).mean()
         self.coin_data[symbol]['10ma'] = self.coin_data[symbol]['close'].rolling(window=10).mean()
         self.coin_data[symbol]['20ma'] = self.coin_data[symbol]['close'].rolling(window=20).mean()
-        print(f"{symbol} MA initialized")
 
         # ADX
         self.coin_data[symbol]['tr'] = self.coin_data[symbol].apply(
@@ -71,7 +67,6 @@ class DataManager:
         di_diff = abs(self.coin_data[symbol]['plus_di'] - self.coin_data[symbol]['minus_di'])
         di_sum = self.coin_data[symbol]['plus_di'] + self.coin_data[symbol]['minus_di']
         self.coin_data[symbol]['adx'] = 100 * (di_diff / di_sum).rolling(window=14).mean()
-        print(f"{symbol} ADX initialized")
 
         # put date as the first column
         columns = [col for col in self.coin_data[symbol].columns if col not in ['date']]
@@ -106,7 +101,6 @@ class DataManager:
             self.coin_data[symbol]['macd'].ewm(span=signal_window, adjust=False).mean().iloc[-1]
         self.coin_data[symbol].loc[self.coin_data[symbol].index[-1], 'histogram'] = \
             self.coin_data[symbol]['macd'].iloc[-1] - self.coin_data[symbol]['signal_line'].iloc[-1]
-        print(f"{symbol} MACD updated")
 
         # update last row RSI
         delta = self.coin_data[symbol]['close'].diff()
@@ -116,7 +110,6 @@ class DataManager:
             (-delta.where(delta < 0, 0)).ewm(span=14, adjust=False).mean().iloc[-1]
         rs = self.coin_data[symbol]['gain'].iloc[-1] / self.coin_data[symbol]['loss'].iloc[-1]
         self.coin_data[symbol].loc[self.coin_data[symbol].index[-1], 'rsi'] = 100 - (100 / (1 + rs))
-        print(f"{symbol} RSI updated")
 
         # update last row Bollinger Bands
         self.coin_data[symbol].loc[self.coin_data[symbol].index[-1], '20sma'] = \
@@ -127,7 +120,6 @@ class DataManager:
             self.coin_data[symbol]['20sma'].iloc[-1] + (self.coin_data[symbol]['20std'].iloc[-1] * 2)
         self.coin_data[symbol].loc[self.coin_data[symbol].index[-1], 'lower_band'] = \
             self.coin_data[symbol]['20sma'].iloc[-1] - (self.coin_data[symbol]['20std'].iloc[-1] * 2)
-        print(f"{symbol} Bollinger Bands updated")
 
         # update last row MA
         self.coin_data[symbol].loc[self.coin_data[symbol].index[-1], '5ma'] = \
@@ -136,7 +128,6 @@ class DataManager:
             self.coin_data[symbol]['close'].rolling(window=10).mean().iloc[-1]
         self.coin_data[symbol].loc[self.coin_data[symbol].index[-1], '20ma'] = \
             self.coin_data[symbol]['close'].rolling(window=20).mean().iloc[-1]
-        print(f"{symbol} MA updated")
 
         # update last row ADX
         # calculate TR
@@ -163,7 +154,6 @@ class DataManager:
         # update ADX
         adx = 100 * abs(plus_di - minus_di) / (plus_di + minus_di)
         self.coin_data[symbol].at[self.coin_data[symbol].index[-1], 'adx'] = adx
-        print(f"{symbol} ADX updated")
 
         # put date as the first column
         columns = [col for col in self.coin_data[symbol].columns if col not in ['date']]

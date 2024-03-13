@@ -1,7 +1,6 @@
 #   单例模式config_manager类
 #   singleton class config_manager
 
-import os
 import sys
 
 import yaml

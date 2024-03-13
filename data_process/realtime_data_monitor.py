@@ -1,9 +1,12 @@
 import threading
 import datetime
-from . import data_processing
+from data_process import data_processing
 from config import config_manager
 from .data_manager import DataManager
 from strategy import analysis
+from tools import logger
+
+logger = logger.Logger().get_logger()
 
 configManager = config_manager.ConfigManager()
 dataManager = DataManager()
@@ -65,7 +68,9 @@ class RealTimeDataMonitor:
 
         # set timer(add extra 3 seconds to ensure the next update is after the update time)
         timer = threading.Timer(next_update_in + 3, lambda: self.update_price(coin, interval, int(update_time * 1000)))
-        print(f"Next update for {symbol} at {update_time}")
+        last_update_date = datetime.datetime.fromtimestamp(last_update_time).strftime('%Y-%m-%d %H:%M:%S')
+        date = datetime.datetime.fromtimestamp(update_time).strftime('%Y-%m-%d %H:%M:%S')
+        logger.info(f"next update for {coin} {interval} is at {date}, last update was at {last_update_date}")
         timer.start()
 
     def add_coin(self, coin, interval, last_update_time):

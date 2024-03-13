@@ -85,3 +85,13 @@ data_process/__pycache__/__init__.cpython-311.pyc
 data_process/__pycache__/data_manager.cpython-311.pyc
 data_process/__pycache__/data_processing.cpython-311.pyc
 data_process/__pycache__/realtime_data_monitor.cpython-311.pyc
+.idea/CryptoTrading.iml
+.idea/modules.xml
+config/data/indicators/BTCUSDT/15m.csv
+config/data/indicators/BTCUSDT/1h.csv
+config/data/indicators/BTCUSDT/1m.csv
+config/data/indicators/BTCUSDT/4h.csv
+config/data/indicators/ETHUSDT/15m.csv
+config/data/indicators/ETHUSDT/1m.csv
+/log
+tools/__pycache__/logger.cpython-311.pyc
